@@ -1,0 +1,43 @@
+package com.example.Story.Model;
+
+public enum ECategory {
+
+    TIENHIEP,
+    KIEMHIEP,
+    NGONTINH,
+    DOTHI,
+    QUANTRUONG,
+    VONGDU,
+    KHOAHUYEN,
+    HUYENHUYEN,
+    DIGIOI,
+    DINANG,
+    QUANSU,
+    LICHSU,
+    XUYENKHONG,
+    TRONGSINH,
+    TRINHTHAM,
+    THAMHIEM,
+    LINHDI,
+    TRUYENSAC,
+    TRUYENNGUOC,
+    TRUYENSUNG,
+    TRUYENCUNGDAU,
+    TRUYENNUCUONG,
+    TRUYENGIADAU,
+    DONGPHUONG,
+    DAMMY,
+    BACHHOP,
+    HAIHUOC,
+    DIENVAN,
+    CODAI,
+    MATTHE,
+    TRUYENTEEN,
+    PHUONGTAY,
+    NUPHU,
+    LIGHTNOVEL,
+    VIETNAM,
+    DOANVAN,
+    TRUYENKHAC
+
+}

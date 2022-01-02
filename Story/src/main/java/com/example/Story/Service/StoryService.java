@@ -7,6 +7,7 @@ import com.example.Story.Exception.NotFoundException;
 import com.example.Story.Helper.ExcelHelper;
 import com.example.Story.Mapper.ChapterMapper;
 import com.example.Story.Mapper.StoryMapper;
+import com.example.Story.Model.Categories;
 import com.example.Story.Model.ECategory;
 import com.example.Story.Rebository.*;
 import com.example.Story.Request.storyRequest;
@@ -71,266 +72,262 @@ public class StoryService {
         Set<String> strCategory = request.getCategory();
             strCategory.forEach(category ->{
                 switch (category){
-//                    case "Tiên Hiệp":
-//                        Category TIENHIEP = categoryRebository.findByName(ECategory.TIENHIEP);
-//                        if(TIENHIEP == null)  {
-//                            throw new RuntimeException("Error: Category is not found");
-//                        }
-                       // categories.add(TIENHIEP);
                     case "Tiên Hiệp":
-                        Category KIEMHIEP = categoryRebository.findByName(ECategory.KIEMHIEP);
+                        Category TIENHIEP = categoryRebository.findByName(Categories.TIENHIEP);
+                        if(TIENHIEP == null)  {
+                            throw new RuntimeException("Error: Category is not found");
+                        }
+                        categories.add(TIENHIEP);
+                    case "Kiếm Hiệp":
+                        Category KIEMHIEP = categoryRebository.findByName(Categories.KIEMHIEP);
                         if(KIEMHIEP == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(KIEMHIEP);
                         break;
                     case "Ngôn Tình":
-                        Category NGONTINH = categoryRebository.findByName(ECategory.NGONTINH);
+                        Category NGONTINH = categoryRebository.findByName(Categories.NGONTINH);
                         if(NGONTINH == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(NGONTINH);
                         break;
                     case "Đô Thị":
-                        Category DOTHI = categoryRebository.findByName(ECategory.DOTHI);
+                        Category DOTHI = categoryRebository.findByName(Categories.DOTHI);
                         if(DOTHI == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DOTHI);
                         break;
                     case "Quan Trường":
-                        Category QUANTRUONG = categoryRebository.findByName(ECategory.QUANTRUONG);
+                        Category QUANTRUONG = categoryRebository.findByName(Categories.QUANTRUONG);
                         if(QUANTRUONG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(QUANTRUONG);
                         break;
                     case "Võng Du":
-                        Category V0NGDU = categoryRebository.findByName(ECategory.VONGDU);
+                        Category V0NGDU = categoryRebository.findByName(Categories.VONGDU);
                         if(V0NGDU == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(V0NGDU);
                         break;
                     case "Khoa Huyền":
-                        Category KHOAHUYEN = categoryRebository.findByName(ECategory.KHOAHUYEN);
+                        Category KHOAHUYEN = categoryRebository.findByName(Categories.KHOAHUYEN);
                         if(KHOAHUYEN == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(KHOAHUYEN);
                         break;
                     case "Huyễn Huyền":
-                        Category HUYENHUYEN = categoryRebository.findByName(ECategory.HUYENHUYEN);
+                        Category HUYENHUYEN = categoryRebository.findByName(Categories.HUYENHUYEN);
                         if(HUYENHUYEN == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(HUYENHUYEN);
                         break;
                     case "Dị Giới":
-                        Category DIGIOI = categoryRebository.findByName(ECategory.DIGIOI);
+                        Category DIGIOI = categoryRebository.findByName(Categories.DIGIOI);
                         if(DIGIOI == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DIGIOI);
                         break;
-                    case "DINANG":
-                        Category DINANG = categoryRebository.findByName(ECategory.KHOAHUYEN);
+                    case "Dị Năng":
+                        Category DINANG = categoryRebository.findByName(Categories.KHOAHUYEN);
                         if(DINANG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DINANG);
                         break;
-                    case "QUANSU":
-                        Category QUANSU = categoryRebository.findByName(ECategory.QUANSU);
+                    case "Quân Sự":
+                        Category QUANSU = categoryRebository.findByName(Categories.QUANSU);
                         if(QUANSU == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(QUANSU);
                         break;
-                    case "LICHSU":
-                        Category LICHSU = categoryRebository.findByName(ECategory.LICHSU);
+                    case "Lịch Sử":
+                        Category LICHSU = categoryRebository.findByName(Categories.LICHSU);
                         if(LICHSU == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(LICHSU);
                         break;
-                    case "XUYENKHONG":
-                        Category XUYENKHONG = categoryRebository.findByName(ECategory.XUYENKHONG);
+                    case "Xuyên Không":
+                        Category XUYENKHONG = categoryRebository.findByName(Categories.XUYENKHONG);
                         if(XUYENKHONG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(XUYENKHONG);
                         break;
-                    case "TRONGSINH":
-                        Category TRONGSINH = categoryRebository.findByName(ECategory.TRONGSINH);
+                    case "Trọng Sinh":
+                        Category TRONGSINH = categoryRebository.findByName(Categories.TRONGSINH);
                         if(TRONGSINH == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRONGSINH);
                         break;
-                    case "TRINHTHAM":
-                        Category TRINHTHAM = categoryRebository.findByName(ECategory.TRINHTHAM);
+                    case "Trinh Thám":
+                        Category TRINHTHAM = categoryRebository.findByName(Categories.TRINHTHAM);
                         if(TRINHTHAM == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRINHTHAM);
                         break;
-                    case "THAMHIEM":
-                        Category THAMHIEM = categoryRebository.findByName(ECategory.THAMHIEM);
+                    case "Thám Hiểm":
+                        Category THAMHIEM = categoryRebository.findByName(Categories.THAMHIEM);
                         if(THAMHIEM == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(THAMHIEM);
                         break;
-                    case "LINHDI":
-                        Category LINHDI = categoryRebository.findByName(ECategory.LINHDI);
+                    case "Linh Dị":
+                        Category LINHDI = categoryRebository.findByName(Categories.LINHDI);
                         if(LINHDI == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(LINHDI);
                         break;
-                    case "TRUYENSAC":
-                        Category TRUYENSAC = categoryRebository.findByName(ECategory.TRUYENSAC);
+                    case "Truyện Sắc":
+                        Category TRUYENSAC = categoryRebository.findByName(Categories.TRUYENSAC);
                         if(TRUYENSAC == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENSAC);
                         break;
-                    case "TRUYENNGUOC":
-                        Category TRUYENNGUOC = categoryRebository.findByName(ECategory.TRUYENNGUOC);
+                    case "Truyện Ngược":
+                        Category TRUYENNGUOC = categoryRebository.findByName(Categories.TRUYENNGUOC);
                         if(TRUYENNGUOC == null)     {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENNGUOC);
                         break;
-                    case "TRUYENSUNG":
-                        Category TRUYENSUNG = categoryRebository.findByName(ECategory.TRUYENSUNG);
+                    case "Truyện Sủng":
+                        Category TRUYENSUNG = categoryRebository.findByName(Categories.TRUYENSUNG);
                         if(TRUYENSUNG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENSUNG);
                         break;
-                    case "TRUYENCUNGDAU":
-                        Category TRUYENCUNGDAU = categoryRebository.findByName(ECategory.TRUYENCUNGDAU);
+                    case "Truyện Cung Đấu":
+                        Category TRUYENCUNGDAU = categoryRebository.findByName(Categories.TRUYENCUNGDAU);
                         if(TRUYENCUNGDAU == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENCUNGDAU);
                         break;
-                    case "TRUYENNUCUONG":
-                        Category TRUYENNUCUONG = categoryRebository.findByName(ECategory.TRUYENNUCUONG);
+                    case "Truyện Nữ Cường":
+                        Category TRUYENNUCUONG = categoryRebository.findByName(Categories.TRUYENNUCUONG);
                         if(TRUYENNUCUONG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENNUCUONG);
                         break;
-                    case "TRUYENGIADAU":
-                        Category TRUYENGIADAU = categoryRebository.findByName(ECategory.TRUYENGIADAU);
+                    case "Truyện Gia Đấu":
+                        Category TRUYENGIADAU = categoryRebository.findByName(Categories.TRUYENGIADAU);
                         if(TRUYENGIADAU == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENGIADAU);
                         break;
-                    case "DONGPHUONG":
-                        Category DONGPHUONG = categoryRebository.findByName(ECategory.DONGPHUONG);
+                    case "Đông Phương":
+                        Category DONGPHUONG = categoryRebository.findByName(Categories.DONGPHUONG);
                         if(DONGPHUONG == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DONGPHUONG);
                         break;
-                    case "DAMMY":
-                        Category DAMMY = categoryRebository.findByName(ECategory.DAMMY);
+                    case "Đam Mỹ":
+                        Category DAMMY = categoryRebository.findByName(Categories.DAMMY);
                         if(DAMMY == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DAMMY);
                         break;
-                    case "BACHHOP":
-                        Category BACHHOP = categoryRebository.findByName(ECategory.BACHHOP);
+                    case "Bách Hợp":
+                        Category BACHHOP = categoryRebository.findByName(Categories.BACHHOP);
                         if(BACHHOP  == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(BACHHOP );
-                    case "HAIHUOC":
-                        Category HAIHUOC = categoryRebository.findByName(ECategory.HAIHUOC);
+                    case "Hài Hước":
+                        Category HAIHUOC = categoryRebository.findByName(Categories.HAIHUOC);
                         if(HAIHUOC == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(HAIHUOC);
                         break;
-                    case "DIEMVAN":
-                        Category DIENVAN = categoryRebository.findByName(ECategory.DIENVAN);
+                    case "Diễm Văn":
+                        Category DIENVAN = categoryRebository.findByName(Categories.DIENVAN);
                         if(DIENVAN== null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DIENVAN);
                         break;
-                    case "CODAI":
-                        Category CODAI = categoryRebository.findByName(ECategory.CODAI);
+                    case "Cổ Đại":
+                        Category CODAI = categoryRebository.findByName(Categories.CODAI);
                         if(CODAI == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(CODAI);
                         break;
-                    case "MATTHE":
-                        Category MATTHE = categoryRebository.findByName(ECategory.MATTHE);
+                    case "Mạt Thế":
+                        Category MATTHE = categoryRebository.findByName(Categories.MATTHE);
                         if(MATTHE == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(MATTHE);
                         break;
-                    case "TRUYENTEEN":
-                        Category TRUYENTEEN = categoryRebository.findByName(ECategory.TRUYENTEEN);
+                    case "Truyện Teen":
+                        Category TRUYENTEEN = categoryRebository.findByName(Categories.TRUYENTEEN);
                         if(TRUYENTEEN == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TRUYENTEEN);
                         break;
                     case "PHUONGTAY":
-                        Category PHUONGTAY = categoryRebository.findByName(ECategory.PHUONGTAY);
+                        Category PHUONGTAY = categoryRebository.findByName(Categories.PHUONGTAY);
                         if(PHUONGTAY == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(PHUONGTAY);
                         break;
-//                    case "NUPHU":
-//                        Category NUPHU = categoryRebository.findByName(ECategory.NUPHU);
-//                        if(NUPHU == null)  {
-//                            throw new RuntimeException("Error: Category is not found");
-//                        }
-//                        categories.add(NUPHU);
-//                        break;
-                    case "LIGHTNOVEL":
-                        Category LIGHTNOVEL = categoryRebository.findByName(ECategory.LIGHTNOVEL);
+                    case "Nữ Phụ":
+                        Category NUPHU = categoryRebository.findByName(Categories.NUPHU);
+                        if(NUPHU == null)  {
+                            throw new RuntimeException("Error: Category is not found");
+                        }
+                        categories.add(NUPHU);
+                        break;
+                    case "Lightnovel":
+                        Category LIGHTNOVEL = categoryRebository.findByName(Categories.LIGHTNOVEL);
                         if(LIGHTNOVEL == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(LIGHTNOVEL);
                         break;
-                    case "VIETNAM":
-                        Category VIETNAM = categoryRebository.findByName(ECategory.VIETNAM);
+                    case "Việt Nam":
+                        Category VIETNAM = categoryRebository.findByName(Categories.VIETNAM);
                         if(VIETNAM == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(VIETNAM);
                         break;
-                    case "DOANVAN":
-                        Category DOANVAN = categoryRebository.findByName(ECategory.DOANVAN);
+                    case "Đoản Văn":
+                        Category DOANVAN = categoryRebository.findByName(Categories.DOANVAN);
                         if(DOANVAN == null)  {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(DOANVAN);
                         break;
                     default:
-                        Category TRUYENKHAC = categoryRebository.findByName(ECategory.NUPHU);
-                        if(TRUYENKHAC == null)  {
-                            throw new RuntimeException("Error: Category is not found");
-                        }
+                        Category TRUYENKHAC = categoryRebository.findByName(Categories.NUPHU);
                         categories.add(TRUYENKHAC);
                 }
             });
         List<StoryCategory> list_str_category = new ArrayList<>();
-
         for(Category category : categories) {
             StoryCategory sc = new StoryCategory();
             sc.setCategory(category);
@@ -342,12 +339,25 @@ public class StoryService {
 
     }
 
-    public Story getStory(long id) {
+    public StoryDTO getStory(long id) {
         Story story = storyRebository.findById(id);
+      //  List<String> categories = new ArrayList<>();
         if(story == null)   {
             throw new NotFoundException("Khong tim thay truyen");
         }
-        return story;
+        StoryDTO dto = storyMapper.covertEntityToDTO(story);
+        List<StoryCategory> sc = storyCategoryRebository.findByStory(story);
+        List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+        List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
+        List<Chapter> chapters = chapterRebository.findByStory(story);
+        List<ChapterDTO> c_dto = new ArrayList<>();
+        for(Chapter c : chapters)   {
+            ChapterDTO chapter_dto = chapterMapper.entityToDTO(c);
+            c_dto.add(chapter_dto);
+        }
+        dto.setChapterDTOS(c_dto);
+        dto.setCategory(categories);
+        return dto;
     }
 
     public List<Story> getAllStory()    {
@@ -355,11 +365,16 @@ public class StoryService {
     }
 
     public List<StoryDTO> getStoryByCategory(long id)   {
-        List<StoryCategory> storyCategory = storyCategoryRebository.findByIdAndCategory(id);
+        List<StoryCategory> storyCategory = storyCategoryRebository.findByCategory(id);
         List<Story> list_story = storyCategory.stream().map(StoryCategory::getStory).collect(Collectors.toList());
         List<StoryDTO> list_dto = new ArrayList<>();
+  //      List<String> categories = new ArrayList<>();
         for(Story st : list_story) {
+            List<StoryCategory> sc = storyCategoryRebository.findByStory(st);
+            List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+            List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
             StoryDTO dto = storyMapper.covertEntityToDTO(st);
+            dto.setCategory(categories);
             list_dto.add(dto);
         }
         return list_dto;
@@ -368,7 +383,7 @@ public class StoryService {
 
         Story story = storyRebository.findById(id);
         if(story == null)   {
-            throw new NotFoundException("Khong tim thay");
+            throw new NotFoundException("Khong tim thay truyen");
         }
         Chapter chapter = new Chapter();
         chapter.setIndex(entity.getIndex());
@@ -404,10 +419,15 @@ public class StoryService {
 
     }
 
-    public Chapter getChapter(long id, String index)    {
+    public ChapterDTO getChapter(long id, String index)    {
         Story story = storyRebository.findById(id);
+        if(story == null) throw new NotFoundException("Không tìm thấy truyện!!");
         Chapter chapter = chapterRebository.findByIndexAndStory(index, story);
-        return chapter;
+        Integer ind = Integer.valueOf(index);
+        String str = ind++ +"";
+        ChapterDTO chapterDTO = chapterMapper.entityToDTO(chapter);
+        chapterDTO.setNextchapter(str);
+        return chapterDTO;
     }
     public List<StoryDTO> getIsfull(boolean bool)  {
         List<Story> list_story = storyRebository.findIsFull(bool);
@@ -416,6 +436,20 @@ public class StoryService {
             dto_.add(storyMapper.covertEntityToDTO(story));
         }
         return dto_;
+    }
+    public List<ChapterDTO> allChapter(long id) {
+        Story story = storyRebository.findById(id);
+        if(story == null) throw new NotFoundException("Không tìm thấy truyện!!");
+        List<Chapter> chapters = chapterRebository.findByStory(story);
+        List<ChapterDTO> dtos= new ArrayList<>();
+        for(Chapter c : chapters) {
+            String index = c.getIndex();
+            ChapterDTO chapterDTO = chapterMapper.entityToDTO(c);
+            Integer ind = Integer.valueOf(index);
+            String str = ind++ +"";
+            chapterDTO.setNextchapter(str);
+        }
+        return dtos;
     }
     public List<StoryDTO> search(String name)   {
         List<Story> list_story = storyRebository.findByNameLike(name);
@@ -458,12 +492,14 @@ public class StoryService {
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             int index = 1;
+            List<Story> list_story = new ArrayList<>();
             for (CSVRecord csvRecord : csvRecords) {
                 Chapter chapter = new Chapter();
-                Story story = storyRebository.findByName("Tây Du Ký");
-                if (story == null) {
-                    throw new NotFoundException("Story not found!!!");
+                list_story = storyRebository.findByNameLike(csvRecord.get("name"));
+                if (list_story.isEmpty()) {
+                    throw new NotFoundException("story not found!!!");
                 }
+                Story story = list_story.get(0);
                 String ind = String.valueOf(index);
                 chapter.setStory(story);
                 chapter.setIndex(ind);

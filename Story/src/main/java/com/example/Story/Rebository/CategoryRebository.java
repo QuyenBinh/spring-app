@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRebository extends JpaRepository<Category, Long> {
 
-    Category findByName(ECategory eCategory);
+    Category findByName(String Category);
 
 }

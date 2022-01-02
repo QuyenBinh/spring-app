@@ -13,6 +13,7 @@ import java.util.List;
 public interface StoryCategoryRebository extends JpaRepository<StoryCategory, Long > {
 
     @Query(value = "SELECT cs.* FROM categories_stories cs WHERE cs.category_id = :id" , nativeQuery = true)
-    List<StoryCategory> findByIdAndCategory(@Param("id") long id);
+    List<StoryCategory> findByCategory(@Param("id") long id);
+    List<StoryCategory> findByStory(Story story);
 
 }

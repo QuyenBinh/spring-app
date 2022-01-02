@@ -1,6 +1,7 @@
 package com.example.Story.Entity;
 
 //import com.example.Story.Model.ECategory;
+import com.example.Story.Model.Categories;
 import com.example.Story.Model.ECategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +23,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "title",nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ECategory name;
+    private String name;
+    @Column(name = "description", length = 1000000)
+    private String description;
+    @Column(name = "img_url")
+    private String imgUrl;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<StoryCategory> storyCategory;
 

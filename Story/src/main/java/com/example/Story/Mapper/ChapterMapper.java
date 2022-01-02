@@ -15,7 +15,6 @@ public class ChapterMapper {
         dto.setIndex(chapter.getIndex());
         dto.setTitle(chapter.getContent());
         dto.setTitle(chapter.getTitle());
-     //   dto.setStory(chapter.getStory());
         return dto;
     }
     public Chapter DtoToEntity(ChapterDTO dto) {
@@ -24,7 +23,6 @@ public class ChapterMapper {
         chapter.setIndex(dto.getIndex());
         chapter.setTitle(dto.getContent());
         chapter.setTitle(dto.getTitle());
-   //     chapter.setStory(dto.getStory());
         return chapter;
 
     }

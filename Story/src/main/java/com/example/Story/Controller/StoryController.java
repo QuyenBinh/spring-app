@@ -1,14 +1,18 @@
 package com.example.Story.Controller;
 
+import com.example.Story.DTO.CategoryDTO;
 import com.example.Story.DTO.ChapterDTO;
 import com.example.Story.DTO.StoryDTO;
+import com.example.Story.Entity.Category;
 import com.example.Story.Entity.Chapter;
 import com.example.Story.Entity.Story;
 //import com.example.Story.Rebository.StoryRebository;
 //import com.example.Story.Service.StoryService;
 import com.example.Story.Helper.ExcelHelper;
+import com.example.Story.Mapper.CategoryMapper;
 import com.example.Story.Mapper.ChapterMapper;
 import com.example.Story.Mapper.StoryMapper;
+import com.example.Story.Rebository.CategoryRebository;
 import com.example.Story.Rebository.ChapterRebository;
 import com.example.Story.Request.storyRequest;
 import com.example.Story.Service.StoryService;
@@ -39,7 +43,10 @@ public class StoryController {
     StoryMapper mapper;
     @Autowired
     ChapterMapper chapterMapper;
-
+    @Autowired
+    private CategoryRebository categoryRebository;
+    @Autowired
+    CategoryMapper categoryMapper;
 
     // Thêm truyện
     @PostMapping("/add")
@@ -53,10 +60,9 @@ public class StoryController {
     }
 
     // Lấy truyện theo id
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/detail")
     public ResponseEntity<StoryDTO> getStory(@PathVariable long id)  {
-        Story story = service.getStory(id);
-        StoryDTO dto = mapper.covertEntityToDTO(story);
+        StoryDTO dto = service.getStory(id);
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
@@ -83,9 +89,13 @@ public class StoryController {
     // Lấy chapter theo truyện
     @GetMapping("/{id}/chapter/{index}")
     public ResponseEntity<ChapterDTO> getChapter(@PathVariable("id") long id,@PathVariable("index") String index)  {
-            Chapter chapter = service.getChapter(id, index);
-            ChapterDTO dto = chapterMapper.entityToDTO(chapter);
-            return new ResponseEntity<ChapterDTO>(dto, HttpStatus.OK);
+            ChapterDTO chapterDTO = service.getChapter(id, index);
+            return new ResponseEntity<ChapterDTO>(chapterDTO, HttpStatus.OK);
+    }
+    //lấy tất cả chapter của truyện
+    @GetMapping("/{id}/chapter/all")
+    public ResponseEntity<List<ChapterDTO>> allChapter(@PathVariable("id") long id)   {
+        return new ResponseEntity<>(service.allChapter(id),HttpStatus.OK);
     }
 
     // Lấy danh sách truyện full / chưa full theo param
@@ -98,6 +108,16 @@ public class StoryController {
     @GetMapping("/search")
     public ResponseEntity<List<StoryDTO>> search(@RequestParam(required = false) String name)   {
             return new ResponseEntity<>(service.search(name), HttpStatus.OK);
+    }
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryDTO>> getAllCategories()    {
+        List<Category> list = categoryRebository.findAll();
+        List<CategoryDTO> dtos = new ArrayList<>();
+        for(Category c : list ) {
+            CategoryDTO dto = categoryMapper.EntityToDTO(c);
+            dtos.add(dto);
+        }
+        return new ResponseEntity<>(dtos,HttpStatus.OK);
     }
 
 }

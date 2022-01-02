@@ -14,9 +14,10 @@ public class StoryDTO {
     private String name;
     private String imageUrl;
     private String introduction;
-    @JsonProperty
+    @JsonProperty("author")
     private String nameAuthor;
     private boolean isFull;
-    private List<Category> category;
+    private List<String> category;
+    private List<ChapterDTO> chapterDTOS;
 
 }

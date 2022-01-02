@@ -24,7 +24,7 @@ public class Chapter {
     private String title;
     @Column(name= "content",nullable = false,length = 100000)
     private String content;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "story_id")
     private Story story;
 

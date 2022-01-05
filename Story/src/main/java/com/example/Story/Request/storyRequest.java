@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -19,6 +20,6 @@ public class storyRequest {
     private String imageUrl;
     private String introduction;
     private boolean isFull;
-    private Set<String> category;
+    private List<String> category;
 
 }

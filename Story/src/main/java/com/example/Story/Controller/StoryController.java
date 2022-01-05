@@ -6,8 +6,6 @@ import com.example.Story.DTO.StoryDTO;
 import com.example.Story.Entity.Category;
 import com.example.Story.Entity.Chapter;
 import com.example.Story.Entity.Story;
-//import com.example.Story.Rebository.StoryRebository;
-//import com.example.Story.Service.StoryService;
 import com.example.Story.Helper.ExcelHelper;
 import com.example.Story.Mapper.CategoryMapper;
 import com.example.Story.Mapper.ChapterMapper;
@@ -24,9 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +47,7 @@ public class StoryController {
     @PostMapping("/add")
     public ResponseEntity<StoryDTO> addStory(@RequestBody storyRequest request)  {
         Story story = service.addStory(request);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @PostMapping("/save-all")
     public ResponseEntity<ResponseMessage> saveAll(@RequestParam("file")MultipartFile file)  {
@@ -70,7 +65,6 @@ public class StoryController {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<StoryDTO>> getCategory(@PathVariable long id)   {
         List<StoryDTO> stories_dto = service.getStoryByCategory(id);
-        List<StoryDTO> list = new ArrayList<>();
         return new ResponseEntity<>(stories_dto, HttpStatus.OK);
     }
 
@@ -118,6 +112,19 @@ public class StoryController {
             dtos.add(dto);
         }
         return new ResponseEntity<>(dtos,HttpStatus.OK);
+    }
+    @PostMapping("/{id}/upload/image")
+    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable("id") long id)    {
+        service.upLoadImageForStory(multipartFile,id);
+        return new ResponseEntity<>("Upload image successfully", HttpStatus.OK);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<StoryDTO>> getAllStory() {
+        return new ResponseEntity<>(service.getAllStory(),HttpStatus.OK);
+    }
+    @GetMapping("/hot")
+    public ResponseEntity<List<StoryDTO>> hotStory()    {
+        return new ResponseEntity<>(service.hotStory(), HttpStatus.OK);
     }
 
 }

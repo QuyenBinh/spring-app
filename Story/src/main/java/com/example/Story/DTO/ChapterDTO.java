@@ -14,6 +14,7 @@ public class ChapterDTO {
     private String index;
     private String title;
     private String content;
+    @JsonProperty("next_chap_id")
     private String nextchapter;
 
 }

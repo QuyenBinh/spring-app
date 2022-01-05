@@ -11,7 +11,7 @@ Insert into category(title,description) values ('Đô Thị','Những truyện c
 Insert into category(title,description) values ('Quan Trường','Là truyện kể về những khía cạnh cũng như quá trình thăng quan tiến chức của nhân vật chính trong chính trường.');
 Insert into category(title,description) values ('Võng Du','Là thể loại truyện thuộc dạng khoa học viễn tượng, lấy bối cảnh thường là các game online trên mạng với công nghệ cao, hình ảnh chất lượng cao, kỹ xảo đồ sộ, mức chân thật cao, kỳ ảo, và tác giả của thể loại này thường rất giàu trí tưởng tượng :))');
 Insert into category(title,description) values ('Khoa Huyền','Những bộ truyện có yếu tố khoa học bí ẩn.');
-Insert into category(title,description) values ('Huyễn Huyền','Truyện có những yếu tố huyền bí, khoa học khó giải thích.');
+Insert into category(title,description) values ('Huyền Huyễn','Truyện có những yếu tố huyền bí, khoa học khó giải thích.');
 Insert into category(title,description) values ('Dị Giới','Trong truyện có xuất hiện những thế giới kỳ dị, khác với thế giới chúng ta đang sinh sống.');
 Insert into category(title,description) values ('Dị Năng','Truyện dị năng là thể loại thường có những nhân vật sở hữu các năng lực siêu nhiên đặc biệt mà người thường không thể nào có được.');
 Insert into category(title,description) values ('Quân Sự','Truyện có yếu tố quân sự, thường diễn ra trong môi trường quân đội, quân lính.');

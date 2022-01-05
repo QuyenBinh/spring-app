@@ -52,12 +52,16 @@ public class ExcelHelper {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
-                String [] category = csvRecord.get("category").split(",");
-                Set<String> categories = new HashSet<>();
+                String str = ", ";
+                String [] category = csvRecord.get("category").split(", ");
+                List<String> categories = new ArrayList<>();
                 for(String s : category)    {
                     categories.add(s);
                 }
-                storyRequest str_request = new storyRequest(csvRecord.get("name"), csvRecord.get("author"), csvRecord.get("img"), csvRecord.get("intro"),csvRecord.get("isFull").equals("full")?true:false,categories);
+                System.out.println("++++++++++++++++++++++++++++++++++++");
+                for(int  i = 0;i<categories.size();i++)
+                    System.out.println(categories.get(i));
+                storyRequest str_request = new storyRequest(csvRecord.get("name"), csvRecord.get("author"), csvRecord.get("img"), csvRecord.get("intro"),csvRecord.get("isFull").equals("Full")?true:false,categories);
                 request.add(str_request);
             }
             return request;

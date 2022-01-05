@@ -18,16 +18,16 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
 public class StoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(StoryService.class);
+    @Value("${image.path}")
+    private String image;
 
     @Autowired
     private StoryRebository storyRebository;
@@ -67,9 +69,11 @@ public class StoryService {
             authorrebository.save(au);
             story.setAuthor(au);
         }
-        story.setAuthor(author);
+        else {
+            story.setAuthor(author);
+        }
         Set<Category> categories = new HashSet<>();
-        Set<String> strCategory = request.getCategory();
+        List<String> strCategory = request.getCategory();
             strCategory.forEach(category ->{
                 switch (category){
                     case "Tiên Hiệp":
@@ -78,6 +82,7 @@ public class StoryService {
                             throw new RuntimeException("Error: Category is not found");
                         }
                         categories.add(TIENHIEP);
+                        break;
                     case "Kiếm Hiệp":
                         Category KIEMHIEP = categoryRebository.findByName(Categories.KIEMHIEP);
                         if(KIEMHIEP == null)  {
@@ -120,7 +125,7 @@ public class StoryService {
                         }
                         categories.add(KHOAHUYEN);
                         break;
-                    case "Huyễn Huyền":
+                    case "Huyền Huyễn":
                         Category HUYENHUYEN = categoryRebository.findByName(Categories.HUYENHUYEN);
                         if(HUYENHUYEN == null)  {
                             throw new RuntimeException("Error: Category is not found");
@@ -287,7 +292,7 @@ public class StoryService {
                         }
                         categories.add(TRUYENTEEN);
                         break;
-                    case "PHUONGTAY":
+                    case "Phương Tây":
                         Category PHUONGTAY = categoryRebository.findByName(Categories.PHUONGTAY);
                         if(PHUONGTAY == null)  {
                             throw new RuntimeException("Error: Category is not found");
@@ -301,7 +306,7 @@ public class StoryService {
                         }
                         categories.add(NUPHU);
                         break;
-                    case "Lightnovel":
+                    case "Light Novel":
                         Category LIGHTNOVEL = categoryRebository.findByName(Categories.LIGHTNOVEL);
                         if(LIGHTNOVEL == null)  {
                             throw new RuntimeException("Error: Category is not found");
@@ -323,8 +328,9 @@ public class StoryService {
                         categories.add(DOANVAN);
                         break;
                     default:
-                        Category TRUYENKHAC = categoryRebository.findByName(Categories.NUPHU);
+                        Category TRUYENKHAC = categoryRebository.findByName(Categories.TRUYENKHAC);
                         categories.add(TRUYENKHAC);
+                        break;
                 }
             });
         List<StoryCategory> list_str_category = new ArrayList<>();
@@ -348,20 +354,30 @@ public class StoryService {
         StoryDTO dto = storyMapper.covertEntityToDTO(story);
         List<StoryCategory> sc = storyCategoryRebository.findByStory(story);
         List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
-        List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
+        List<String> ecategories = cate.stream().map(Category::getName).collect(Collectors.toList());
         List<Chapter> chapters = chapterRebository.findByStory(story);
         List<ChapterDTO> c_dto = new ArrayList<>();
         for(Chapter c : chapters)   {
             ChapterDTO chapter_dto = chapterMapper.entityToDTO(c);
             c_dto.add(chapter_dto);
         }
-        dto.setChapterDTOS(c_dto);
-        dto.setCategory(categories);
+        dto.setChapter(c_dto);
+        dto.setCategory(ecategories);
         return dto;
     }
 
-    public List<Story> getAllStory()    {
-        return storyRebository.findAll();
+    public List<StoryDTO> getAllStory()    {
+        List<Story> list = storyRebository.findAll();
+        List<StoryDTO> dtos = new ArrayList<>();
+        for(Story s :list)  {
+            StoryDTO dto = storyMapper.covertEntityToDTO(s);
+            List<StoryCategory> sc = storyCategoryRebository.findByStory(s);
+            List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+            List<String> ecategories = cate.stream().map(Category::getName).collect(Collectors.toList());
+            dto.setCategory(ecategories);
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     public List<StoryDTO> getStoryByCategory(long id)   {
@@ -445,19 +461,46 @@ public class StoryService {
         for(Chapter c : chapters) {
             String index = c.getIndex();
             ChapterDTO chapterDTO = chapterMapper.entityToDTO(c);
-            Integer ind = Integer.valueOf(index);
-            String str = ind++ +"";
+            Integer ind = Integer.valueOf(index) +1;
+            String str = ind +"";
             chapterDTO.setNextchapter(str);
+            dtos.add(chapterDTO);
         }
         return dtos;
     }
     public List<StoryDTO> search(String name)   {
-        List<Story> list_story = storyRebository.findByNameLike(name);
+     //   List<Story> list_story = storyRebository.findByNameLike(name);
+        List<Story> list_str = storyRebository.findAll();
+        List<Story> str_list = new ArrayList<>();
+        String n = name.toLowerCase(Locale.ROOT);
+        for(Story s : list_str)   {
+            String str = s.getName().toLowerCase(Locale.ROOT);
+            if(str.contains(n))   {
+                str_list.add(s);
+            }
+        }
         List<StoryDTO> dto_ = new ArrayList<>();
-        for(Story story : list_story){
-            dto_.add(storyMapper.covertEntityToDTO(story));
+        for(Story story : str_list){
+            StoryDTO dto = storyMapper.covertEntityToDTO(story);
+            List<StoryCategory> sc = storyCategoryRebository.findByStory(story);
+            List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+            List<String> ecategories = cate.stream().map(Category::getName).collect(Collectors.toList());
+            dto.setCategory(ecategories);
+            dto_.add(dto);
         }
         return dto_;
+    }
+    public List<StoryDTO> hotStory()    {
+
+        List<StoryDTO> dtos = new ArrayList<>();
+        for(long i = 0;i<6;i++)  {
+            Random rand = new Random();
+            int rad = rand.nextInt(20);
+            Story story = storyRebository.findById(rad);
+            StoryDTO dto = storyMapper.covertEntityToDTO(story);
+            dtos.add(dto);
+        }
+        return dtos;
     }
     public void CSVtoStory(MultipartFile file) throws IOException {
 
@@ -492,14 +535,14 @@ public class StoryService {
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             int index = 1;
-            List<Story> list_story = new ArrayList<>();
             for (CSVRecord csvRecord : csvRecords) {
                 Chapter chapter = new Chapter();
-                list_story = storyRebository.findByNameLike(csvRecord.get("name"));
+                List<Story> list_story = storyRebository.findByNameLike(csvRecord.get("name"));
                 if (list_story.isEmpty()) {
                     throw new NotFoundException("story not found!!!");
                 }
                 Story story = list_story.get(0);
+                System.out.println(story.getName());
                 String ind = String.valueOf(index);
                 chapter.setStory(story);
                 chapter.setIndex(ind);
@@ -513,4 +556,28 @@ public class StoryService {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
     }
+    public void upLoadImageForStory(MultipartFile multipartFile, long id)    {
+        Story story = storyRebository.findById(id);
+        String name = multipartFile.getOriginalFilename();
+        try{
+            FileCopyUtils.copy(multipartFile.getOriginalFilename().getBytes(StandardCharsets.UTF_8), new File
+                    (this.image + name));
+            story.setImageUrl(this.image + name);
+            storyRebository.save(story);
+        } catch (IOException e) {
+            logger.info("Upload image fail :" + e.getMessage());
+        }
+    }
+//    public void upLoadImageForCategory(MultipartFile multipartFile, long id)    {
+//        Category category = categoryRebository.getById(id);
+//        String name = multipartFile.getOriginalFilename();
+//        try{
+//            FileCopyUtils.copy(multipartFile.getOriginalFilename().getBytes(StandardCharsets.UTF_8), new File
+//                    (this.image + name));
+//            category.setImgUrl(this.image + name);
+//            storyRebository.save(story);
+//        } catch (IOException e) {
+//            logger.info("Upload image fail :" + e.getMessage());
+//        }
+//    }
 }

@@ -19,7 +19,6 @@ public class StoryMapper {
         dto.setIntroduction(story.getIntroduction());
         dto.setFull(story.isFull());
         dto.setNameAuthor(story.getAuthor().getUsername());
-        //dto.setCategory(story.getStoryCategory().stream().map(StoryCategory::getCategory).collect(Collectors.toList()));
         return dto;
 
     }

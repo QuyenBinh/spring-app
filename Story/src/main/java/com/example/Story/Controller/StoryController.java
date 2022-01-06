@@ -122,9 +122,19 @@ public class StoryController {
     public ResponseEntity<List<StoryDTO>> getAllStory() {
         return new ResponseEntity<>(service.getAllStory(),HttpStatus.OK);
     }
+    // Truyện hot
     @GetMapping("/hot")
     public ResponseEntity<List<StoryDTO>> hotStory()    {
         return new ResponseEntity<>(service.hotStory(), HttpStatus.OK);
     }
-
+    // Truyện full
+    @GetMapping("/full")
+    public ResponseEntity<List<StoryDTO>> sotryIsFull() {
+        return new ResponseEntity<>(service.storyIsFull(),HttpStatus.OK);
+    }
+    // Truyện chưa full
+    @GetMapping("/not-full")
+    public ResponseEntity<List<StoryDTO>> sotryIsNotFull() {
+        return new ResponseEntity<>(service.storyIsNotFull(),HttpStatus.OK);
+    }
 }

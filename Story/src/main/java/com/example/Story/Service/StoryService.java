@@ -384,13 +384,41 @@ public class StoryService {
         List<StoryCategory> storyCategory = storyCategoryRebository.findByCategory(id);
         List<Story> list_story = storyCategory.stream().map(StoryCategory::getStory).collect(Collectors.toList());
         List<StoryDTO> list_dto = new ArrayList<>();
-  //      List<String> categories = new ArrayList<>();
         for(Story st : list_story) {
             List<StoryCategory> sc = storyCategoryRebository.findByStory(st);
             List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
             List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
             StoryDTO dto = storyMapper.covertEntityToDTO(st);
             dto.setCategory(categories);
+            dto.setCount(list_story.size());
+            list_dto.add(dto);
+        }
+        return list_dto;
+    }
+    public List<StoryDTO> storyIsFull()   {
+        List<Story> storyList = storyRebository.findIsFull(true);
+        List<StoryDTO> list_dto = new ArrayList<>();
+        for(Story st : storyList) {
+            List<StoryCategory> sc = storyCategoryRebository.findByStory(st);
+            List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+            List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
+            StoryDTO dto = storyMapper.covertEntityToDTO(st);
+            dto.setCategory(categories);
+            dto.setCount(storyList.size());
+            list_dto.add(dto);
+        }
+        return list_dto;
+    }
+    public List<StoryDTO> storyIsNotFull()   {
+        List<Story> storyList = storyRebository.findIsFull(false);
+        List<StoryDTO> list_dto = new ArrayList<>();
+        for(Story st : storyList) {
+            List<StoryCategory> sc = storyCategoryRebository.findByStory(st);
+            List<Category> cate = sc.stream().map(StoryCategory::getCategory).collect(Collectors.toList());
+            List<String> categories = cate.stream().map(Category::getName).collect(Collectors.toList());
+            StoryDTO dto = storyMapper.covertEntityToDTO(st);
+            dto.setCategory(categories);
+            dto.setCount(storyList.size());
             list_dto.add(dto);
         }
         return list_dto;
@@ -440,7 +468,7 @@ public class StoryService {
         if(story == null) throw new NotFoundException("Không tìm thấy truyện!!");
         Chapter chapter = chapterRebository.findByIndexAndStory(index, story);
         Integer ind = Integer.valueOf(index);
-        String str = ind++ +"";
+        String str = ++ind +"";
         ChapterDTO chapterDTO = chapterMapper.entityToDTO(chapter);
         chapterDTO.setNextchapter(str);
         return chapterDTO;
@@ -495,13 +523,14 @@ public class StoryService {
         List<StoryDTO> dtos = new ArrayList<>();
         for(long i = 0;i<6;i++)  {
             Random rand = new Random();
-            int rad = rand.nextInt(20);
+            int rad = rand.nextInt((42-36)+1) + 36;
             Story story = storyRebository.findById(rad);
             StoryDTO dto = storyMapper.covertEntityToDTO(story);
             dtos.add(dto);
         }
         return dtos;
     }
+
     public void CSVtoStory(MultipartFile file) throws IOException {
 
         List<storyRequest> requets =  ExcelHelper.csvToStory(file.getInputStream());

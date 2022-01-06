@@ -1,6 +1,5 @@
 package com.example.Story.Entity;
 
-//import com.example.Story.Model.ECategory;
 import com.example.Story.Model.Categories;
 import com.example.Story.Model.ECategory;
 import lombok.AllArgsConstructor;

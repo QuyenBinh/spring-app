@@ -26,5 +26,7 @@ public interface StoryRebository extends JpaRepository<Story ,Long> {
     Story findByName(String name);
     @Query(value = "SELECT * FROM story WHERE name := name ORDER BY ASC",nativeQuery = true)
     Story findFirstByOrderByNameAsc(String name);
+    @Query(value = "SELECT COUNT(*) AS Count FROM story s WHERE S.is_full = :bool",nativeQuery = true)
+    int countStoryIsFull(boolean bool);
 
 }

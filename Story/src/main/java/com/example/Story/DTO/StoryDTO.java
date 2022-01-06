@@ -21,5 +21,7 @@ public class StoryDTO {
     @JsonProperty("categories")
     private List<String> category;
     private List<ChapterDTO> chapter;
+    @JsonProperty("count")
+    private int count;
 
 }

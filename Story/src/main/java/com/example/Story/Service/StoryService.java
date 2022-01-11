@@ -1,10 +1,13 @@
 package com.example.Story.Service;
 
+import com.example.Story.DTO.CategoryDTO;
 import com.example.Story.DTO.ChapterDTO;
+import com.example.Story.DTO.StoryCategoryDTO;
 import com.example.Story.DTO.StoryDTO;
 import com.example.Story.Entity.*;
 import com.example.Story.Exception.NotFoundException;
 import com.example.Story.Helper.ExcelHelper;
+import com.example.Story.Mapper.CategoryMapper;
 import com.example.Story.Mapper.ChapterMapper;
 import com.example.Story.Mapper.StoryMapper;
 import com.example.Story.Model.Categories;
@@ -53,6 +56,8 @@ public class StoryService {
     private ChapterMapper chapterMapper;
     @Autowired
     StoryMapper storyMapper;
+    @Autowired
+    CategoryMapper categoryMapper;
 
 
     public Story addStory(storyRequest request)  {
@@ -526,6 +531,24 @@ public class StoryService {
             int rad = rand.nextInt((42-36)+1) + 36;
             Story story = storyRebository.findById(rad);
             StoryDTO dto = storyMapper.covertEntityToDTO(story);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    public List<CategoryDTO> allCategory()  {
+
+        List<Category> list = categoryRebository.findAll();
+        List<StoryCategoryDTO> list_ = storyCategoryRebository.findByCategoryAndCountByStory();
+        List<CategoryDTO> dtos = new ArrayList<>();
+        for(Category c : list ) {
+            CategoryDTO dto = categoryMapper.EntityToDTO(c);
+            dto.setCount(0);
+            for(StoryCategoryDTO scDto : list_ )    {
+                if(dto.getId() == scDto.getCategory().getId())    {
+                    dto.setCount(scDto.getCount());
+                }
+            }
             dtos.add(dto);
         }
         return dtos;

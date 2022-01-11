@@ -105,13 +105,7 @@ public class StoryController {
     }
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDTO>> getAllCategories()    {
-        List<Category> list = categoryRebository.findAll();
-        List<CategoryDTO> dtos = new ArrayList<>();
-        for(Category c : list ) {
-            CategoryDTO dto = categoryMapper.EntityToDTO(c);
-            dtos.add(dto);
-        }
-        return new ResponseEntity<>(dtos,HttpStatus.OK);
+        return new ResponseEntity<>(service.allCategory(),HttpStatus.OK);
     }
     @PostMapping("/{id}/upload/image")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable("id") long id)    {

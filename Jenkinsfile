@@ -4,7 +4,6 @@ node {
   }
 
   stage("Compilation") {
-	sh "docker build -t story:1.0 ."
     sh "mvn clean package -DskipTests"
   }
 

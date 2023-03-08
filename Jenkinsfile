@@ -4,15 +4,16 @@ node {
   }
 
   stage("Compilation") {
-    sh "mvn clean install -DskipTests"
+	sh "docker build -t story:1.0 ."
+    sh "mvn clean package -DskipTests"
   }
 
-  stage("Tests and Deployment") {
-    stage("Runing unit tests") {
-      sh "./mvnw test -Punit"
+  stage("Build") {
+    stage("build image") {
+      sh "docker build -t story:1.0 ."
     }
-    stage("Deployment") {
-      sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
+    stage("run image") {
+      sh 'docker run -name story-application -p 8081:8080'
     }
   }
 }

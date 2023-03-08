@@ -11,4 +11,5 @@ public class StoryApplication {
 		SpringApplication.run(StoryApplication.class, args);
 	}
 
+
 }
